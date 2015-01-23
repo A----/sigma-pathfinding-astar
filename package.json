@@ -1,0 +1,26 @@
+{
+  "name": "sigma-pathfinding-astar",
+  "version": "1.0.0",
+  "description": "An A* implementation for Sigma.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/A----/sigma-pathfinding-astar.git"
+  },
+  "keywords": [
+    "sigma.js",
+    "pathfinding"
+  ],
+  "author": "A----",
+  "license": "Public Domain",
+  "bugs": {
+    "url": "https://github.com/A----/sigma-pathfinding-astar/issues"
+  },
+  "homepage": "https://github.com/A----/sigma-pathfinding-astar",
+  "dependencies": {
+    "sigma": "^1.0.3"
+  }
+}
