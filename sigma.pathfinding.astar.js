@@ -58,7 +58,6 @@
           nodeId: nodeId,
           previousNode: previousNode
         };
-        console.log(newItem.nodeId);
 
         if(closedList[nodeId] == undefined || closedList[nodeId].pathLenth > pathLength) {
           closedList[nodeId] = newItem;
@@ -67,24 +66,12 @@
           var i;
           for(i = 0; i < openList.length; i++) {
             item = openList[i];
-            if(item.heuristicLength < heuristicLength) {
+            if(item.heuristicLength > heuristicLength) {
               break;
             }
           }
 
-          var txt  = "> ";
-          for(var i in openList) {
-            txt = txt + " " + openList[i].nodeId + " (" + openList[i].heuristicLength + ")";
-          }
-          console.log(txt);
-
           openList.splice(i, 0, newItem);
-
-          var txt  = "> ";
-          for(var i in openList) {
-            txt = txt + " " + openList[i].nodeId + " (" + openList[i].heuristicLength + ")";
-          }
-          console.log(txt);
         }
       };
 
