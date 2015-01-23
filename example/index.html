@@ -54,6 +54,14 @@
                 target: getNodeId(i, j)
               });
             }
+
+            if(i % 2 == 0 && j % 2 == 0 && s.graph.nodes(getNodeId(i - 1, j - 1))) {
+              s.graph.addEdge({
+                id: getNodeId(i - 1, j - 1) + "-" + getNodeId(i, j),
+                source: getNodeId(i - 1, j - 1),
+                target: getNodeId(i, j)
+              });
+            }
           }
         }
       }
