@@ -8,7 +8,7 @@ using a naive implementation of the [A*](http://en.wikipedia.org/wiki/A*_search_
 
 Either download a tarball, `git clone` the repository or `npm install` it. Then it's pretty straight-forward.
 
-It adds a method to your `sigma.graph` called `path(srcId, destId[, options])`.
+It adds a method to your `sigma.graph` called `astar(srcId, destId[, options])`.
 - `srcId`, identifier of the start node;
 - `destId`, identification of the destination node;
 - `options` (optional), an object containing one or more of those properties:
