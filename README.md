@@ -1,4 +1,4 @@
-sigma.pathfinding.astar.js — v1.0.0
+sigma.pathfinding.astar.js — v1.0.1
 ===================================
 
 *sigma.pathfinding.astar.js* is a plugin for [sigma.js](http://sigmajs.org) that computes path in a graph
@@ -25,3 +25,13 @@ Check `example/index.html` for a live example.
 ## Build
 
 Use `grunt` or `grunt watch`.
+
+## Changelog
+
+### v1.0.1 – 2015-09-16
+
+* Fixing suboptimal path (missing parameter in heuristic, #1)
+
+### v1.0.0 – 2015-01-26
+
+* Initial release
