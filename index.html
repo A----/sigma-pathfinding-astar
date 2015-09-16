@@ -1,0 +1,151 @@
+<html>
+  <head>
+    <title>Sigma.js A* plugin</title>
+
+    <style>
+      #example {
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Sigma A* plugin example</h1>
+
+    <div id="example"></div>
+
+    <script src="lib/sigma.min.js"></script>
+    <script src="sigma.pathfinding.astar.min.js"></script>
+
+    <script>
+
+      // Setting up graph
+      var s = new sigma({
+        settings: {
+          edgeColor: 'default'
+        }
+      });
+      s.addRenderer({
+        type: 'canvas',
+        container: document.getElementById('example')
+      });
+
+      // Add nodes and edges
+      var getNodeId = function(i, j) {
+        return i + '.' + j;
+      }
+      var getEdgeId = function(nodeId1, nodeId2) {
+        if(nodeId1 < nodeId2) {
+          return nodeId1 + "-" + nodeId2;
+        }
+        else {
+          return nodeId2 + "-" + nodeId1;
+        }
+      }
+
+      for(var i = 0; i < 10; i++) {
+        for(var j = 0; j < 10; j++) {
+          if(i != 5 || j < 2 || j > 7) {
+            s.graph.addNode({
+              id: getNodeId(i, j),
+              x: i,
+              y: j,
+              size: 1
+            });
+
+            if(s.graph.nodes(getNodeId(i - 1, j))) {
+              s.graph.addEdge({
+                id: getEdgeId(getNodeId(i - 1, j), getNodeId(i, j)),
+                source: getNodeId(i - 1, j),
+                target: getNodeId(i, j)
+              });
+            }
+
+            if(s.graph.nodes(getNodeId(i, j - 1))) {
+              s.graph.addEdge({
+                id: getEdgeId(getNodeId(i, j - 1), getNodeId(i, j)),
+                source: getNodeId(i, j - 1),
+                target: getNodeId(i, j)
+              });
+            }
+
+            if(i % 2 == 0 && j % 2 == 0 && s.graph.nodes(getNodeId(i - 1, j - 1))) {
+              s.graph.addEdge({
+                id: getEdgeId(getNodeId(i - 1, j - 1), getNodeId(i, j)),
+                source: getNodeId(i - 1, j - 1),
+                target: getNodeId(i, j)
+              });
+            }
+          }
+        }
+      }
+
+      s.graph.addNode({
+        id: getNodeId(11, 11),
+        x: 11,
+        y: 11,
+        size: 1
+      });
+
+      s.refresh();
+
+      // Util function
+      function computeAndDrawPath(srcId, destId, boundaryColor, pathColor) {
+        var path = s.graph.astar(srcId, destId, {
+          undirected: true
+        });console.log(path);
+
+        if(path) {
+          for(var i = 0; i < path.length; i++) {
+            path[i].color = pathColor;
+
+            if(i > 0) {
+              var edge = s.graph.edges(getEdgeId(path[i - 1].id, path[i].id));
+              if(edge) {
+                edge.color = pathColor;
+              }
+            }
+          }
+        }
+
+        var srcNode = s.graph.nodes(srcId),
+            destNode = s.graph.nodes(destId);
+
+        srcNode.color = boundaryColor;
+        destNode.color = boundaryColor;
+
+        s.refresh();
+      };
+
+      // Draw some paths.
+      computeAndDrawPath(
+        getNodeId(4, 0),
+        getNodeId(4, 4),
+        "#090",
+        "#0F0"
+      );
+
+      computeAndDrawPath(
+        getNodeId(0, 0),
+        getNodeId(6, 9),
+        "#900",
+        "#F00"
+      );
+
+      computeAndDrawPath(
+        getNodeId(9, 0),
+        getNodeId(0, 9),
+        "#009",
+        "#00F"
+      );
+
+      computeAndDrawPath(
+        getNodeId(8, 8),
+        getNodeId(11, 11),
+        "#099",
+        "#0FF"
+      );
+    </script>
+  </body>
+</html>
